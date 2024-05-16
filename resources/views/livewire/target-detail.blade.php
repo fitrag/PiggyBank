@@ -1,21 +1,22 @@
-<div class="flex-auto">
-    <x-header/>
-    <div class="mx-4 my-3 relative top-[-10em]">
-        <div class="mb-5 bg-white rounded-xl flex items-center">
-            <input type="text" class="bg-transparent w-full outline-none py-2 px-3 placeholder:text-xs text-xs" placeholder="Cari tabungan">
-            <i class='bx bx-search p-3 text-gray-500'></i>
+<div>
+    <div class="bg-gradient-to-t from-violet-700 to-violet-900 pt-4 pb-44 flex text-white px-4 items-center justify-between">
+        <div class="flex-none cursor-pointer" @click="window.history.back()">
+            <i class='bx bx-arrow-back text-xl' ></i>
         </div>
-        @if(!$targets->isEmpty())
-        <h3 class="text-sm font-medium mb-4 text-white">Dalam progress</h3>
-        <div class="owl-carousel owl-theme" x-init="
-            $($el).owlCarousel({
-                items:1,
-                center:true,
-                nav:false
-            })
-        ">
-            @foreach($targets as $target)
-                <div class="bg-white p-4 rounded-lg flex justify-between items-center mb-4 me-2 shadow">
+        <div class="text-sm font-semibold">
+            {{ $target->nama }}
+        </div>
+        <div class="flex-none">
+            <a href="{{ url('target/create') }}" wire:navigate class="">
+                <i class='bx bx-pencil text-xl' ></i>
+            </a>
+        </div>
+    </div>
+    <div class="mx-4 my-3 relative top-[-9em]">
+        <div class="bg-white rounded-2xl px-4 py-4">
+            <div class="flex flex-col space-y-3">
+                <img src="{{ $target->foto ? $target->foto : 'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg'}}" alt="" class="rounded-lg object-cover h-[50%] object-cover">
+                <div class="flex justify-between items-center">
                     <div class="">
                         <h3 class="text-base font-semibold">{{ $target->nama }}</h3>
                         <h6 class="text-sm font-medium">Rp {{ number_format($target->target,0,',','.') }}</h6>
@@ -35,17 +36,40 @@
                         </div>
                     </div>
                 </div>
-            @endforeach
+                <div class="flex justify-around py-4 items-center">
+                    <div class="">
+                        <h3 class="text-sm text-center font-medium text-gray-500">Terkumpul</h3>
+                        <h1 class="text-lg text-center text-green-500 font-semibold">Rp {{ number_format($target->nabungs->sum('nilai'),0,',','.') }}</h1>
+                    </div>
+                    <div class="">
+                        <h3 class="text-sm text-center font-medium text-gray-500">Kurang</h3>
+                        <h1 class="text-lg text-center text-red-500 font-semibold">Rp {{ number_format($target->target - $target->nabungs->sum('nilai'),0,',','.') }}</h1>
+                    </div>
+                </div>
+            </div>
         </div>
-        @endif
+        
+        <div class="mt-3" x-data="{ show : false }">
+            <div class="" x-show="show" @close-form.window="show=false">
+                <form wire:submit="nabung" method="post">
+                    <div class="flex bg-white rounded-lg shadow mb-4">
+                        <input type="number" wire:model="jumlah" id="" class="w-full outline-none rounded-lg px-3 text-sm text-gray-600 placeholder:text-sm" placeholder="Masukkan jumlah uang yang akan ditabung">
+                        <div class="p-2">
+                            <i class='bx bx-money text-2xl'></i>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <button class="bg-blue-500 p-2 rounded-lg text-white w-full text-sm" @click="show = !show" x-text="show ? 'Tutup' : 'Tambah tabungan'"></button>
+        </div>
 
-        <div class="bg-white rounded-2xl px-4 py-4">
+        <div class="bg-white rounded-2xl px-4 py-4 mt-3">
             <div class="flex justify-between">
-                <h3 class="text-sm font-medium mb-4 text-dark">Transaksi</h3>
-                <a href="" class="text-blue-500 text-xs">Lihat semua</a>
+                <h3 class="text-sm font-medium mb-4 text-dark">Riwayat Menabung</h3>
+                <!-- <a href="" class="text-blue-500 text-xs">Lihat semua</a> -->
             </div>
             <div class="flex flex-col space-y-5">
-                @forelse($nabungs as $nabung)
+                @forelse($target->nabungs()->latest()->get() as $nabung)
                 <div class="flex space-x-3 items-center">
                     <div class="w-12 flex-none">
                         <div class="bg-slate-200 flex items-center justify-center p-3 rounded-xl text-slate-400">
@@ -57,7 +81,7 @@
                     </div>
                     <div class="flex-auto">
                         <h3 class="text-sm font-medium mb-1">{{ $nabung->target->nama }}</h3>
-                        <p class="text-slate-500 text-xs">{{ date_format(date_create($nabung->created_at), 'd M Y') }}</p>
+                        <p class="text-slate-500 text-xs">{{ date_format(date_create($nabung->created_at), 'd M Y H:i:s') }}</p>
                     </div>
                     <div class="flex-none text-green-500 text-sm">
                         + Rp {{ number_format($nabung->nilai,0,',','.') }}

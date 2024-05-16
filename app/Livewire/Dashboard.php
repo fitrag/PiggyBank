@@ -3,11 +3,14 @@
 namespace App\Livewire;
 
 use Livewire\Component;
+use App\Models\{Target, Nabung};
 
 class Dashboard extends Component
 {
     public function render()
     {
-        return view('livewire.dashboard');
+        $targets = Target::all();
+        $nabungs = Nabung::limit(5)->latest()->get();
+        return view('livewire.dashboard', compact('targets','nabungs'));
     }
 }
