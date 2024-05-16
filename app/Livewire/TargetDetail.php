@@ -19,7 +19,7 @@ class TargetDetail extends Component
 
     public function nabung(){
         $this->validate([
-            'jumlah'    => 'required'
+            'jumlah'    => 'required|numeric'
         ]);
         $insert = Nabung::create([
             'user_id'   => 1,
