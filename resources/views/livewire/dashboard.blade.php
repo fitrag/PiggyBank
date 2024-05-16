@@ -15,7 +15,7 @@
             })
         ">
             @foreach($targets as $target)
-                <div class="bg-white p-4 rounded-lg flex justify-between items-center mb-4 me-2 shadow">
+                <a wire:navigate href="{{ route('target-view', ['id' => $target->id]) }}" class="bg-white p-4 rounded-lg flex justify-between items-center mb-4 me-2 shadow">
                     <div class="">
                         <h3 class="text-base font-semibold">{{ $target->nama }}</h3>
                         <h6 class="text-sm font-medium">Rp {{ number_format($target->target,0,',','.') }}</h6>
@@ -34,7 +34,7 @@
                             <span class="text-center text-sm font-bold text-gray-800 text-dark">{{ round(($target->nabungs->sum('nilai')/$target->target)*100,1) }}%</span>
                         </div>
                     </div>
-                </div>
+                </a>
             @endforeach
         </div>
         @endif

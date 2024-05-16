@@ -4,13 +4,14 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\{Target, Nabung};
-use Livewire\Attributes\On;
+use Livewire\Attributes\{On};
 
 class TargetDetail extends Component
 {
-
+    
     public $target, $jumlah, $id;
-
+    
+    
     public function mount($id){
         $this->id = $id;
         $this->target = Target::find($id);
