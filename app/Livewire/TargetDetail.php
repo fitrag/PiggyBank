@@ -22,7 +22,7 @@ class TargetDetail extends Component
             'jumlah'    => 'required|numeric'
         ]);
         $insert = Nabung::create([
-            'user_id'   => 1,
+            'user_id'   => auth()->user()->id,
             'target_id' => $this->id,
             'nilai'     => $this->jumlah,
             'tanggal'   => date('Y-m-d')

@@ -16,7 +16,7 @@ class TargetCreate extends Component
     public function save(){
         $this->validate();
         $insert = Target::create([
-            'user_id'   => 1,
+            'user_id'   => auth()->user()->id,
             'nama'      => $this->nama,
             'target'    => $this->target,
             'foto'      => $this->foto,

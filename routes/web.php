@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Livewire\{Dashboard, AnalyticsData, SettingData, TargetData, TargetCreate, NabungForm, TargetDetail};
+use App\Livewire\{Dashboard, AnalyticsData, SettingData, TargetData, TargetCreate, NabungForm, TargetDetail, Login, Register};
 
 /*
 |--------------------------------------------------------------------------
@@ -15,6 +15,8 @@ use App\Livewire\{Dashboard, AnalyticsData, SettingData, TargetData, TargetCreat
 */
 
 Route::get('/', Dashboard::class);
+Route::get('/login', Login::class);
+Route::get('/register', Register::class);
 Route::get('/analytics', AnalyticsData::class);
 Route::get('/setting', SettingData::class);
 Route::get('/target', TargetData::class);

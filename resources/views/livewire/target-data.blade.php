@@ -1,14 +1,14 @@
 <div>
     <div class="bg-gradient-to-t from-violet-700 to-violet-900 pt-4 pb-44 flex text-white px-4 items-center justify-between">
         <div class="flex-none cursor-pointer" @click="window.history.back()">
-            <i class='bx bx-arrow-back text-xl' ></i>
+            <i class='bx bx-arrow-back text-2xl' ></i>
         </div>
         <div class="text-sm font-semibold">
             Semua Target
         </div>
         <div class="flex-none">
             <a href="{{ url('target/create') }}" wire:navigate class="">
-                <i class='bx bx-pencil text-xl' ></i>
+                <i class='bx bx-pencil text-2xl' ></i>
             </a>
         </div>
     </div>
@@ -26,6 +26,9 @@
                     <div class="flex-auto">
                         <h3 class="text-sm font-medium mb-1">{{ $target->nama }}</h3>
                         <p class="text-slate-500 text-xs">{{ date_format(date_create($target->created_at), 'd M Y') }}</p>
+                        <div class="w-full bg-gray-200 rounded-full mt-3">
+                            <div class="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full" style="width: {{ round(($target->nabungs->sum('nilai')/$target->target)*100,1) }}%">{{ round(($target->nabungs->sum('nilai')/$target->target)*100,1) }}%</div>
+                        </div>
                     </div>
                     <div class="flex-none text-slate-7\800 font-semibold text-sm">
                         Rp {{ number_format($target->target,0,',','.') }}

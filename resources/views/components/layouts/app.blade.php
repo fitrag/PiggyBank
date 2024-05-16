@@ -9,6 +9,7 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+        <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
         <script>
             tailwind.config = {
             theme: {
@@ -45,6 +46,7 @@
     <body class="bg-slate-50">
         <section class="bg-slate-50 max-w-1/2 lg:w-1/3 w-full flex flex-col m-auto">
             {{ $slot }}
+            @auth
             <navbar class="bg-white text-gray-400 fixed bottom-0 flex justify-between items-center py-3 px-5 right-0 left-0 lg:w-1/3 w-full m-auto">
                 <div class="">
                     <a wire:navigate href="{{ url('/') }}" class="flex flex-col items-center hover:text-blue-500 transition transition-duration-400 {{ request()->is('/') ? 'text-blue-500' : '' }}">
@@ -79,6 +81,7 @@
                     </a>
                 </div>
             </navbar>
+            @endauth
         </section>
     </body>
 </html>

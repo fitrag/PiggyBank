@@ -1,14 +1,17 @@
 <div>
     <div class="bg-gradient-to-t from-violet-700 to-violet-900 pt-4 pb-44 flex text-white px-4 items-center justify-between">
         <div class="flex-none cursor-pointer" @click="window.history.back()">
-            <i class='bx bx-arrow-back text-xl' ></i>
+            <i class='bx bx-arrow-back text-2xl' ></i>
         </div>
         <div class="text-sm font-semibold">
             {{ $target->nama }}
         </div>
-        <div class="flex-none">
+        <div class="flex-none flex items-center space-x-3">
             <a href="{{ url('target/create') }}" wire:navigate class="">
-                <i class='bx bx-pencil text-xl' ></i>
+                <i class='bx bx-pencil text-2xl' ></i>
+            </a>
+            <a href="{{ url('target/create') }}" wire:navigate class="">
+                <i class='bx bx-trash text-2xl'></i>
             </a>
         </div>
     </div>
@@ -48,6 +51,104 @@
                 </div>
             </div>
         </div>
+        @if(!$target->nabungs->isEmpty())
+        <div class="bg-white rounded-2xl pt-4">
+            <div class="w-full bg-white rounded-t-[2.5em]">
+                @php
+                    $nilai = \App\Models\Nabung::where('target_id',$this->id)->select('*', DB::raw('sum(nilai) as totalnabung'))->groupBy('tanggal')->limit(7)->latest()->get();
+                    $size = sizeof($nilai);
+                    $nilaiBaru = [];
+                    for($i=$size-1; $i>=0;$i--){
+                        array_push($nilaiBaru, $nilai[$i]);
+                    }
+                @endphp
+                <div x-data x-init="
+                const options = {
+                    chart: {
+                        height: '100%',
+                        maxWidth: '100%',
+                        type: 'area',
+                        fontFamily: 'Inter, sans-serif',
+                        dropShadow: {
+                        enabled: false,
+                        },
+                        toolbar: {
+                        show: false,
+                        },
+                    },
+                    tooltip: {
+                        enabled: true,
+                        x: {
+                        show: false,
+                        },
+                    },
+                    
+                    fill: {
+                        type: 'gradient',
+                        gradient: {
+                        opacityFrom: 0.55,
+                        opacityTo: 0,
+                        shade: '#1C64F2',
+                        gradientToColors: ['#1C64F2'],
+                        },
+                    },
+                    dataLabels: {
+                        enabled: false,
+                    },
+                    stroke: {
+                        width: 4,
+                    },
+                    grid: {
+                        show: false,
+                        strokeDashArray: 4,
+                        padding: {
+                        left:0,
+                        right: 0,
+                        top: 0
+                        },
+                    },
+                    series: [
+                        {
+                        name: 'Rp ',
+                        data: [
+                            @foreach($nilaiBaru as $n)
+                                '{{ $n->totalnabung }}',
+                            @endforeach
+                            ],
+                        color: '#1A56DB',
+                        },
+                    ],
+                    xaxis: {
+                        categories: [
+                            @foreach($nilaiBaru as $t)
+                            '{{ date_format(date_create($t->tanggal),'l') }}',
+                            @endforeach
+                            ],
+                        labels: {
+                        show: false,
+                        },
+                        axisBorder: {
+                        show: false,
+                        },
+                        axisTicks: {
+                        show: false,
+                        },
+                    },
+                    yaxis: {
+                        show: false,
+                    },
+                    }
+
+                    if (document.getElementById('area-chart') && typeof ApexCharts !== 'undefined') {
+                    const chart = new ApexCharts(document.getElementById('area-chart'), options);
+                    chart.render();
+                }
+                ">
+                    <div id="area-chart"></div>
+                </div>
+            </div>
+        </div>
+        @endif
         
         <div class="mt-3" x-data="{ show : false }">
             <div class="" x-show="show" @close-form.window="show=false">
