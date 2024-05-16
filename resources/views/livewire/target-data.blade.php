@@ -13,6 +13,9 @@
         </div>
     </div>
     <div class="mx-4 my-3 relative top-[-10em]">
+        <div class="my-3 bg-blue-600 text-sm text-white rounded-lg p-4 dark:bg-blue-500" role="alert">
+            <span class="font-bold">Info</span> Buat target menabungmu lebih asik dan terukur
+        </div>
         <div class="bg-white rounded-2xl px-4 py-4">
             <div class="flex flex-col space-y-5">
                 @forelse($targets as $target)

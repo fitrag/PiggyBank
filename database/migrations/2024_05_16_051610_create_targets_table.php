@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('nama');
             $table->integer('target');
+            $table->enum('status',['progress','selesai'])->default('progress');
             $table->string('foto', 999)->nullable();
             $table->timestamps();
         });

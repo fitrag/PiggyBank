@@ -24,7 +24,8 @@ class TargetDetail extends Component
         $insert = Nabung::create([
             'user_id'   => 1,
             'target_id' => $this->id,
-            'nilai'     => $this->jumlah
+            'nilai'     => $this->jumlah,
+            'tanggal'   => date('Y-m-d')
         ]);
         if($insert){
             $this->jumlah = '';
