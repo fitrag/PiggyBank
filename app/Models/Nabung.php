@@ -13,4 +13,7 @@ class Nabung extends Model
     public function target(){
         return $this->belongsTo(Target::class);
     }
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

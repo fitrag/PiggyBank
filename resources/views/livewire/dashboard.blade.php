@@ -42,7 +42,7 @@
         <div class="bg-white rounded-2xl px-4 py-4">
             <div class="flex justify-between">
                 <h3 class="text-sm font-medium mb-4 text-dark">Transaksi</h3>
-                <a href="" class="text-blue-500 text-xs">Lihat semua</a>
+                <a wire:navigate href="{{ url('analytics') }}" class="text-blue-500 text-xs">Lihat semua</a>
             </div>
             <div class="flex flex-col space-y-5">
                 @forelse($nabungs as $nabung)

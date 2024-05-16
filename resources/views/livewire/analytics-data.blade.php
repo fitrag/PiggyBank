@@ -39,6 +39,17 @@
                                 }
                             }
                         }
+                    },
+                    scales:{
+                        y:{
+                            ticks: {
+                            // For a category axis, the val is the index so the lookup via getLabelForValue is needed
+                            callback: function(val, index) {
+                                // Hide every 2nd tick label
+                                return 'Rp '+new Intl.NumberFormat('id-ID').format(val);
+                            },
+                            }
+                        }
                     }
                 }
             });

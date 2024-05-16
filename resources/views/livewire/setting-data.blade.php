@@ -4,7 +4,9 @@
         <h3 class="text-base font-semibold text-white">Fadila Fitra Kusuma Jaya</h3>
     </div>
     <div class="relative bg-blue-500 flex flex-col items-center rounded-t-[2.5em] mt-[-2em] pt-4 pb-12">
-        <h1 class="text-2xl text-white font-semibold">Rp 2.000.000</h1>
+        <h1 class="text-2xl text-white font-semibold">
+            Rp {{ number_format(\App\Models\User::find(1)->nabungs->sum('nilai'),0,',','.') }}
+        </h1>
         <h6 class="text-xs text-white font-normal">Total Nabung</h6>
     </div>
     <div class="relative bg-white flex flex-col items-center rounded-t-[2.5em] mt-[-2em] p-4">
