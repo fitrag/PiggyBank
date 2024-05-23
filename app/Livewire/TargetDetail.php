@@ -32,6 +32,13 @@ class TargetDetail extends Component
         }
     }
 
+    public function delete(Target $id){
+        $delete = $id->delete();
+        if($delete){
+            $this->redirect(TargetData::class);
+        }
+    }
+
     #[On('update-target-detail')]
     public function update(){
         $this->target = Target::find($id);

@@ -10,9 +10,9 @@
             <a href="{{ url('target/create') }}" wire:navigate class="">
                 <i class='bx bx-pencil text-2xl' ></i>
             </a>
-            <a href="{{ url('target/create') }}" wire:navigate class="">
+            <button wire:click="delete({{ $target->id }})" class="">
                 <i class='bx bx-trash text-2xl'></i>
-            </a>
+            </button>
         </div>
     </div>
     <div class="mx-4 my-3 relative top-[-9em]">

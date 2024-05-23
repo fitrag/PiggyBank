@@ -44,12 +44,12 @@
         <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
     </head>
     <body class="bg-slate-50">
-        <section class="bg-slate-50 max-w-1/2 lg:w-1/3 w-full flex flex-col m-auto">
+        <section class="bg-slate-50 max-w-1/2 md:w-[435px] lg:w-[435px] w-full flex flex-col m-auto">
             {{ $slot }}
             @auth
-            <navbar class="bg-white text-gray-400 fixed bottom-0 flex justify-between items-center py-3 px-5 right-0 left-0 lg:w-1/3 w-full m-auto">
+            <navbar class="bg-white text-gray-400 fixed bottom-0 flex justify-between items-center pb-1 px-5 right-0 left-0 md:w-[435px] lg:w-[435px] w-full m-auto">
                 <div class="">
-                    <a wire:navigate href="{{ url('/') }}" class="flex flex-col items-center hover:text-blue-500 transition transition-duration-400 {{ request()->is('/') ? 'text-blue-500' : '' }}">
+                    <a wire:navigate href="{{ url('/dashboard') }}" class="flex flex-col items-center hover:text-blue-500 transition transition-duration-400 {{ request()->is('dashboard') ? 'text-blue-500' : '' }}">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
                             <path d="M11.47 3.841a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 0 1.06-1.061l-8.689-8.69a2.25 2.25 0 0 0-3.182 0l-8.69 8.69a.75.75 0 1 0 1.061 1.06l8.69-8.689Z" />
                         <path d="m12 5.432 8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 0 1-.75-.75v-4.5a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0-.75.75V21a.75.75 0 0 1-.75.75H5.625a1.875 1.875 0 0 1-1.875-1.875v-6.198a2.29 2.29 0 0 0 .091-.086L12 5.432Z" />
@@ -65,8 +65,15 @@
                         <h3 class="text-xs">Analytics</h3>
                     </a>
                 </div>
+                <div class="relative">
+                    <a wire:navigate href="{{ url('/target/create') }}" class="flex flex-col items-center hover:text-blue-500 transition transition-duration-400 p-3 border-4 border-slate-50 border-b bg-black rounded-full shadow relative top-[-1.5em] {{ request()->is('target/create*') ? 'text-white' : '' }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                    </svg>
+                    </a>
+                </div>
                 <div class="">
-                    <a wire:navigate href="{{ url('/target') }}" class="flex flex-col items-center hover:text-blue-500 transition transition-duration-400 {{ request()->is('target*') ? 'text-blue-500' : '' }}">
+                    <a wire:navigate href="{{ url('/target') }}" class="flex flex-col items-center hover:text-blue-500 transition transition-duration-400 {{ request()->is('target') ? 'text-blue-500' : '' }}">
                         <i class='bx bx-target-lock text-2xl'></i>
                         </svg>
                         <h3 class="text-xs">Target</h3>

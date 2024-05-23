@@ -14,12 +14,15 @@ use App\Livewire\{Dashboard, AnalyticsData, SettingData, TargetData, TargetCreat
 |
 */
 
-Route::get('/', Dashboard::class);
-Route::get('/login', Login::class);
-Route::get('/register', Register::class);
-Route::get('/analytics', AnalyticsData::class);
-Route::get('/setting', SettingData::class);
-Route::get('/target', TargetData::class);
-Route::get('/target/create', TargetCreate::class);
-Route::get('/target/{id}/view', TargetDetail::class)->name('target-view');
-Route::get('/nabung', NabungForm::class);
+Route::get('/', Login::class)->name('login');
+Route::middleware('auth')->group(function(){
+    Route::get('/dashboard', Dashboard::class);
+    Route::get('/login', Login::class);
+    Route::get('/register', Register::class);
+    Route::get('/analytics', AnalyticsData::class);
+    Route::get('/setting', SettingData::class);
+    Route::get('/target', TargetData::class);
+    Route::get('/target/create', TargetCreate::class);
+    Route::get('/target/{id}/view', TargetDetail::class)->name('target-view');
+    Route::get('/nabung', NabungForm::class);
+});
